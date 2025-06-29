@@ -24,10 +24,13 @@ jobs:
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
-          version: nightly
+          version: latest
 
-      - name: Install dependencies
-        run: forge install
+      - name: Install OpenZeppelin v4.9.5
+        run: forge install OpenZeppelin/openzeppelin-contracts@v4.9.5 --no-commit
+
+      - name: Install forge-std (latest)
+        run: forge install foundry-rs/forge-std --no-commit --no-git
 
       - name: Run Forge tests
         run: forge test --verbosity 3
