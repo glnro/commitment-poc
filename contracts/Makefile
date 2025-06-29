@@ -20,6 +20,8 @@ help:
 	@echo "  anvil-start   - Start Anvil blockchain"
 	@echo "  anvil-stop    - Stop Anvil blockchain"
 	@echo "  anvil-logs    - View Anvil logs"
+	@echo "  anvil-health  - Anvil deployment health check"
+	@echo "  anvil-debug   - Debug Anvil deployment"
 	@echo "  deploy-manual - Deploy contracts to Anvil"
 	@echo "  test-deployed - Test deployed contracts"
 	@echo "  deploy-full   - Complete manual deployment (start + deploy + test)"

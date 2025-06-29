@@ -1,36 +1,51 @@
 name: Contracts Tests
 
 on:
-  push:
-    paths:
-      - 'contracts/**'
   pull_request:
-    paths:
-      - 'contracts/**'
+  merge_group:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}-tests
+  cancel-in-progress: true
 
 jobs:
   test:
-    name: Run Forge Tests
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: contracts
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Get changed files
+        uses: technote-space/get-diff-action@v6.1.2
+        id: git_diff
+        with:
+          PATTERNS: |
+            .github/workflows/contracts-test.yml
+            **/*.sol
 
       - name: Install Foundry
+        if: env.GIT_DIFF
         uses: foundry-rs/foundry-toolchain@v1
         with:
-          version: latest
+          version: nightly
 
-      - name: Install OpenZeppelin v4.9.5
-        run: forge install OpenZeppelin/openzeppelin-contracts@v4.9.5 --no-commit
+      - name: Install pinned dependencies
+        if: env.GIT_DIFF
+        working-directory: ./contracts
+        run: |
+          forge install OpenZeppelin/openzeppelin-contracts@v4.9.5
+          forge install foundry-rs/forge-std
 
-      - name: Install forge-std (latest)
-        run: forge install foundry-rs/forge-std --no-commit --no-git
-
-      - name: Run Forge tests
-        run: forge test --verbosity 3
+      - name: Run contract tests
+        if: env.GIT_DIFF
+        working-directory: ./contracts
+        run: forge test -vvvv

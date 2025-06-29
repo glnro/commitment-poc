@@ -34,8 +34,7 @@ These targets will:
 ```bash
 cd contracts
 
-# One time setup
-make setup-env
+make setup-env      # One time setup
 
 make anvil-start    # Start Anvil
 make deploy-manual  # Deploy contract with forge
