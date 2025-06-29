@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
 import "forge-std/Test.sol";
@@ -124,7 +123,7 @@ contract CommitmentStorageTest is Test {
         vm.expectRevert("CommitmentStorage: block interval too small");
         commitmentStorage.submitCommitment(
             bytes32(uint256(2)),
-            3600, // Should be at least 1800 + 1800 = 3600
+            3599, // Should be < 1800 + 1800 = 3600
             proofData
         );
 

@@ -1,0 +1,11 @@
+# Build artifacts
+bin/
+out/
+cache/
+lib/
+!contracts/lib/**
+
+# Misc
+.DS_Store
+.env
+.idea/

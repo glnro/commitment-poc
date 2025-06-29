@@ -20,7 +20,7 @@ type Config struct {
 func Load(configFile string) *Config {
 	// Load environment variables from file
 	if err := godotenv.Load(configFile); err != nil {
-		log.Printf("Warning: Could not load .env file: %v", err)
+		log.Printf("Warning: Could not load env.test file: %v", err)
 	}
 
 	return &Config{
