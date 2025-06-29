@@ -1,5 +1,7 @@
 ## Commitment Contracts
 
+![CI](https://github.com/glnro/commitment-poc/actions/workflows/contracts-test.yml/badge.svg)
+
 This guide instructs on the deployment of the OP Succinct Commitment Storage contract using Docker and Anvil.
 
 ## Overview
